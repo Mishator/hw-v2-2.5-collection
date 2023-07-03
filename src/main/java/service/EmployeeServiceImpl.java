@@ -6,7 +6,10 @@ import model.Employee;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -44,5 +47,10 @@ public class EmployeeServiceImpl implements EmployeeService {
             return employee;
         }
         throw new EmployeeNotFoundException();
+    }
+
+    @Override
+    public Collection<Employee> findAll() {
+        return Collections.unmodifiableList(employeeList);
     }
 }
