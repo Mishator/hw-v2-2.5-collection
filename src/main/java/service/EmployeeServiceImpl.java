@@ -1,5 +1,7 @@
 package service;
 
+import com.example.homeworkcollection.exception.EmployeeAlreadyAddedException;
+import com.example.homeworkcollection.exception.EmployeeNotFoundException;
 import model.Employee;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee add(String firsName, String lastName) {
         Employee employee = new Employee(firsName, lastName);
+        if (employeeList.contains(employee)) {
+            throw new EmployeeAlreadyAddedException();
+        }
         employeeList.add(employee);
         return employee;
     }
@@ -28,7 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             employeeList.remove(employee);
             return employee;
         }
-        return null;
+        throw new EmployeeNotFoundException();
     }
 
     @Override
@@ -38,6 +43,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employeeList.contains(employee)) {
             return employee;
         }
-        return null;
+        throw new EmployeeNotFoundException();
     }
 }
